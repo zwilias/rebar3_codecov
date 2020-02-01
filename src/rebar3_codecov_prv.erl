@@ -79,10 +79,10 @@ format_array_to_list(Module, CallsPerLineArray, Acc) ->
 get_source_path(Module) when is_atom(Module) ->
     try
         AbsPath = proplists:get_value(source, Module:module_info(compile)),
-        [Prefix, Suffix] = string:split(AbsPath, "src/"),
-        filename:join("src", Suffix)
+        [Prefix, Suffix] = string:split(AbsPath, "apps/"),
+        filename:join("apps", Suffix)
     catch Error:Reason ->
-              Path = filename:join(["src/", atom_to_list(Module) ++ ".erl"]),
+              Path = filename:join(["apps/", atom_to_list(Module) ++ ".erl"]),
               Issue = io_lib:format("Failed to calculate the source path of module ~p~n
                                      falling back to ~s", [Module, Path]),
               rebar_api:warn("~s~n~p~n~p~n~p~n", [Issue, Error, Reason, erlang:get_stacktrace()]),
