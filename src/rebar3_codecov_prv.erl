@@ -64,7 +64,7 @@ analyze(Files) ->
 to_json(Data) ->
     Mod2Data = lists:foldl(fun add_cover_line_into_array/2, #{}, Data),
     JSON = maps:fold(fun format_array_to_list/3, [], Mod2Data),
-    Binary = jiffy:encode(#{<<"coverage">> => {JSON}}),
+    Binary = jsx:encode(#{<<"coverage">> => {JSON}}),
     file:write_file(?OUT_FILE, Binary).
 
 add_cover_line_into_array({{Module, Line}, CallTimes}, Acc) ->
